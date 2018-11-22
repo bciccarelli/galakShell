@@ -1,10 +1,13 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
+#pragma warning disable 0649
 class main
 {
-    static List<command> dataBase = new List<command>() {};
+    static string dataFileName = "data.gterm";
     static string[] types = new string[] { "string ' '", "int ` `" };
+    static List<string> paths = new List<string>();
+    static List<commandFile> commandFiles = new List<commandFile>();
     public static void Main(string[] args)
     {
         Console.ForegroundColor = ConsoleColor.White;
@@ -16,10 +19,29 @@ class main
         Console.WriteLine("***    Press Ctrl + C to exit or type 'help'!      ***");
         Console.WriteLine("***                                                ***");
         Console.WriteLine("******************************************************");
+
+        setup();
+        foreach (commandFile c in commandFiles)
+        {
+            Console.WriteLine(c.commands[0].parameters[1]);
+        }
         while (true)
         {
             Console.Write(">");
             interpret(Console.ReadLine());
+        }
+    }
+    public static string[] readFile(string fileName) {
+        return File.ReadAllLines(fileName);
+    }
+    public static void setup()
+    {
+        foreach (string s in readFile(dataFileName)) {
+            paths.Add(s);
+        }
+        foreach (string p in paths)
+        {
+            commandFiles.Add(new commandFile(readFile(p)));
         }
     }
     public static void interpret(string line) {
@@ -41,23 +63,77 @@ class main
                 Console.Clear();
                 break;
         }
+        identifyCommand(line);
     }
-    public static string identifyType(string word) {
-        foreach (string s in types) {
-            string req = s.Substring(s.IndexOf(' '));
-            if (matchesReqs(word, req)) {
-                return s.Substring(0, s.IndexOf(' '));
+    public static void identifyCommand(string s) {
+        foreach (commandFile cf in commandFiles) {
+            foreach (command c in cf.commands)
+            {
+                if (s.IndexOf(' ') > 0)
+                {
+                    if (c.name == s.Substring(0, s.IndexOf(' ')))
+                    {
+                        Console.WriteLine(c.name);
+                    }
+                } else
+                {
+                    if (c.name == s)
+                    {
+                        Console.WriteLine(c.name);
+                    }
+                }
             }
         }
-        return "undefined";
     }
-    public static bool matchesReqs(string s, string reqs) {
-        return true;
+}
+class commandFile
+{
+    public string[] lines;
+    public List<command> commands=new List<command>();
+    public commandFile(string[] file) {
+        lines = file;
+        findCommands();
+    }
+    public void findCommands() {
+        bool commandOpened = false;
+        string name = "";
+        List<string> parameters = new List<string>();
+        List<string> code = new List<string>();
+        foreach (string line in lines) {
+            if (commandOpened)
+            {   
+                if (line.StartsWith("}"))
+                {
+                    commandOpened = false;
+                    commands.Add(new command(name, parameters, code));
+                } else {
+                    code.Add(line);
+                }
+            } else if (line.StartsWith("{")) {
+                commandOpened = true;
+                name = line.Substring(2, line.IndexOf(']') - 2);
+                string[] s = line.Split('[');
+                for (int i = 1; i < s.Length; i++) {
+                    parameters.Add(s[i].Substring(0,s[i].IndexOf(']')));
+                }
+            }
+        }
     }
 }
 class command
 {
-    public command(string name) {
+    public string name;
+    public List<string> parameters = new List<string>();
+    public List<string> code = new List<string>();
+    public command(string n, List<string> p, List<string> c)
+    {
+        name = n;
+        parameters = p;
+        code = c;
+    }
+    public void run() {
+        foreach (string line in code) {
 
-	} 
+        }
+    } 
 }
