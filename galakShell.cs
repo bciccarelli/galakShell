@@ -4,7 +4,7 @@ using System.Collections.Generic;
 #pragma warning disable 0649
 class main
 {
-    static string dataFileName = "data.gterm";
+    static string dataFileName = "data.gshell";
     static string[] types = new string[] { "string ' '", "int ` `" };
     static List<string> paths = new List<string>();
     static List<commandFile> commandFiles = new List<commandFile>();
@@ -56,6 +56,18 @@ class main
                 Console.WriteLine("***                                                  ***");
                 Console.WriteLine("***  Type 'help 1' for how to create a command file  ***");
                 Console.WriteLine("***                      1/2                         ***");
+                Console.WriteLine("***                                                  ***");
+                Console.WriteLine("********************************************************");
+                break;
+            case "help 1":
+                Console.Clear();
+                Console.WriteLine("********************************************************");
+                Console.WriteLine("***                                                  ***");
+                Console.WriteLine("***    To create a commandfile, use the .gshell      ***");
+                Console.WriteLine("***   file extension. Take a look at the example     ***");
+                Console.WriteLine("***       file and the galak-c documentation.        ***");
+                Console.WriteLine("***                                                  ***");
+                Console.WriteLine("***                      2/2                         ***");
                 Console.WriteLine("***                                                  ***");
                 Console.WriteLine("********************************************************");
                 break;
