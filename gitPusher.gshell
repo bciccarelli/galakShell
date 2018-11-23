@@ -1,4 +1,4 @@
-{[command] [p0] [p1]
+{[gitInit] [p0]
 write gitting:[p0]
 run /K cd [p0] && git init
 }
