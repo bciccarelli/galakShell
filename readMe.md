@@ -8,24 +8,28 @@ Galakshell is a shell which allows you to access multiple command files and run 
 
 # Documentation
 #### How it works
-GalakShell connects all of your custom commands into a single shell. This means that you can create what will be called **command files.** These are files which house the code of a command. A simple example would be
+GalakShell connects all of your custom commands into a single shell. This means that you can create what will be called **command files.** These are files which house the code of your commands. A simple example would be
 ```
 {[gitInit] [p0]
 write gitting:[p0]
 run /K cd [p0] && git init
 }
 ```
-This example would be executed as follows:
-```
-gitInit [folder] 
-```
-and would write the name of the folder, open command prompt, run `cd [folder]`, and finally run `git init`
-
-**This example is included** when you download the source code.
+- This example would be executed through the GalakShell by typing `gitInit folder ` where `folder` is the name of the folder you wish to use
+- This code would write the name of the folder, open command prompt, run `cd folder`, and finally run `git init`
+- **This example is included** when you download the source code.
 #### Getting Started
 Data.gshell files will be set up automatically upon the inclusion of a commandFile
 **Using:**
+`createCommand commandLocation `
+will include a command file located at `commandLocation`, and allow you to access its commands during this session, and every session thereafter.
+- A command file must use the .gshell extension
+- A command file must follow the correct syntax for it to be used
+#### Syntax
+A command takes the form of
 ```
-createCommand [commandLocation] 
+{[commandName] [p0] [p1] ..
+--- code block ---
+}
 ```
-will include a command file, and allow you to access its commands during this session, and every session thereafter.
+and would reside in a file named something like `myCommand.gshell`
