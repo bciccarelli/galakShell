@@ -20,12 +20,11 @@ run /K cd [p0] && git init
 - **This example is included** when you download the source code.
 #### Getting Started
 Data.gshell files will be set up automatically upon the inclusion of a commandFile
-
 **Using:**
 `createCommand commandLocation `
 will include a command file located at `commandLocation`, and allow you to access its commands during this session, and every session thereafter.
 - A command file must use the .gshell extension
-- A command file must follow the correct syntax for it to be used
+- A command file must follow the correct syntax for it to be read by GalakShell
 #### Syntax
 A command takes the form of
 ```
