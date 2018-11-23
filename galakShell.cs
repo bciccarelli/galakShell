@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Diagnostics;
 #pragma warning disable 0649
 class main
 {
@@ -21,10 +22,6 @@ class main
         Console.WriteLine("******************************************************");
 
         setup();
-        foreach (commandFile c in commandFiles)
-        {
-            Console.WriteLine(c.commands[0].parameters[1]);
-        }
         while (true)
         {
             Console.Write(">");
@@ -85,13 +82,17 @@ class main
                 {
                     if (c.name == s.Substring(0, s.IndexOf(' ')))
                     {
-                        Console.WriteLine(c.name);
+                        List<string> param = new List<string>();
+                        for (int i = 1; i < s.Split(' ').Length; i++) {
+                            param.Add(s.Split(' ')[i]);
+                        }
+                        c.run(param);
                     }
                 } else
                 {
                     if (c.name == s)
                     {
-                        Console.WriteLine(c.name);
+                        c.run(new List<string>() { "" });
                     }
                 }
             }
@@ -143,9 +144,42 @@ class command
         parameters = p;
         code = c;
     }
-    public void run() {
+    public void run(List<string> param) {
         foreach (string line in code) {
-
+            recognize(line, param);
         }
-    } 
+    }
+    public void recognize(string line, List<string> param) {
+        switch (line.Substring(0, line.IndexOf(' ')).ToLower()) {
+            case "write":
+                Console.WriteLine( identify(line.Substring(line.IndexOf(' ')+1), param) );
+                break;
+            case "run":
+                Process.Start("CMD.exe", identify(line.Substring(line.IndexOf(' ')+1), param) );
+                break;
+        }
+    }
+    public string identify(string piece, List<string> param)
+    {
+        if (piece.Substring(0, 2) == "[p")
+        {
+            return param[toInt(piece.Substring(2, 1))];
+        }
+        else {
+            while (piece.IndexOf("[")>0)
+            {
+                piece = piece.Replace(piece.Substring(piece.IndexOf("["),4), param[toInt(piece.Substring(piece.IndexOf("[")+2, 1))]);
+            }
+            return piece;
+        }
+    }
+    public int toInt(string s) {
+        int number;
+        if (!Int32.TryParse(s, out number))
+        {
+            Console.WriteLine(s);
+            Console.WriteLine("String could not be parsed.");
+        }
+        return number;
+    }
 }

@@ -1,3 +1,4 @@
-{[testCommand] [p1] [p2]
-write [p1]
+{[command] [p0] [p1]
+write gitting:[p0]
+run /K cd [p0] && git init
 }
