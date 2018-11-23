@@ -20,6 +20,7 @@ run /K cd [p0] && git init
 - **This example is included** when you download the source code.
 #### Getting Started
 Data.gshell files will be set up automatically upon the inclusion of a commandFile
+
 **Using:**
 `createCommand commandLocation `
 will include a command file located at `commandLocation`, and allow you to access its commands during this session, and every session thereafter.
