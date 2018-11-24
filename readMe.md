@@ -28,7 +28,7 @@ will include a command file located at `commandLocation`, and allow you to acces
 ### Syntax
 A command takes the form of
 ```
-{[commandName] [p0] [p1] ..
+{[commandName] [p0] [p1] ...
 --- code block ---
 }
 ```
