@@ -100,11 +100,11 @@ class main
             {
                 if (s.IndexOf(' ') > 0)
                 {
-                    if (c.name == s.Substring(0, s.IndexOf(' ')))
+                    if (c.name == s.Substring(0, s.IndexOf('[')))
                     {
                         List<string> param = new List<string>();
-                        for (int i = 1; i < s.Split(' ').Length; i++) {
-                            param.Add(s.Split(' ')[i]);
+                        for (int i = 1; i < s.Split('[').Length; i++) {
+                            param.Add(s.Split('[')[i].Substring(0, s.Split('[')[i].Length-1));
                         }
                         c.run(param);
                     }
