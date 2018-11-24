@@ -17,7 +17,7 @@ run /K cd [p0] && git init
 ```
 - This example would be executed through the GalakShell by typing `gitInit folder ` where `folder` is the name of the folder you wish to use
 - This code would write the name of the folder, open command prompt, run `cd folder`, and finally run `git init`
-- **This example is included** when you download the source code.
+- **An example similar to this one is included** when you download the source code.
 ### Getting Started
 Data.gshell files will be set up automatically upon the inclusion of a commandFile
 **Using:**
