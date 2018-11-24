@@ -31,8 +31,18 @@ class main
     public static string[] readFile(string fileName) {
         return File.ReadAllLines(fileName);
     }
+    public static void writeFile(string fileName, string line)
+    {
+        using (System.IO.StreamWriter file =
+            new System.IO.StreamWriter(fileName, true))
+        {
+            file.WriteLine(line);
+        }
+    }
     public static void setup()
     {
+        paths = new List<string>();
+        commandFiles = new List<commandFile>();
         foreach (string s in readFile(dataFileName)) {
             paths.Add(s);
         }
@@ -72,7 +82,17 @@ class main
                 Console.Clear();
                 break;
         }
-        identifyCommand(line);
+        if (line.StartsWith("createCommand"))
+        {
+            line = line.Substring(14);
+            writeFile(dataFileName,"\n"+line);
+            setup();
+            Console.WriteLine("done");
+        }
+        else
+        {
+            identifyCommand(line);
+        }
     }
     public static void identifyCommand(string s) {
         foreach (commandFile cf in commandFiles) {
