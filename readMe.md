@@ -12,7 +12,7 @@ GalakShell connects all of your custom commands into a single shell. This means 
 ```
 {[gitPush] [p0] [p1]
 write|gitting:[p0]
-run|/K cd [p0] && git init && git add . && git commit -m "[p1]" && git push origin master
+run|/C cd [p0] && git init && git add . && git commit -m "[p1]" && git push origin master
 }
 
 ```
