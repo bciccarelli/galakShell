@@ -170,12 +170,12 @@ class command
         }
     }
     public void recognize(string line, List<string> param) {
-        switch (line.Substring(0, line.IndexOf(' ')).ToLower()) {
+        switch (line.Substring(0, line.IndexOf('|')).ToLower()) {
             case "write":
-                Console.WriteLine( identify(line.Substring(line.IndexOf(' ')+1), param) );
+                Console.WriteLine( identify(line.Substring(line.IndexOf('|')+1), param) );
                 break;
             case "run":
-                Process.Start("CMD.exe", identify(line.Substring(line.IndexOf(' ')+1), param) );
+                Process.Start("CMD.exe", identify(line.Substring(line.IndexOf('|')+1), param) );
                 break;
         }
     }

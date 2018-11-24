@@ -10,10 +10,11 @@ Galakshell is a shell which allows you to access multiple command files and run 
 ### How it works
 GalakShell connects all of your custom commands into a single shell. This means that you can create what will be called **command files.** These are files which house the code of your commands. A simple example would be
 ```
-{[gitInit] [p0]
-write gitting:[p0]
-run /K cd [p0] && git init
+{[gitPush] [p0] [p1]
+write|gitting:[p0]
+run|/K cd [p0] && git init && git add . && git commit -m "[p1]" && git push origin master
 }
+
 ```
 - This example would be executed through the GalakShell by typing `gitInit folder ` where `folder` is the name of the folder you wish to use
 - This code would write the name of the folder, open command prompt, run `cd folder`, and finally run `git init`
