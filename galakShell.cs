@@ -3,14 +3,20 @@ using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
 #pragma warning disable 0649
+#pragma warning disable 0414
 class main
 {
     static string dataFileName = "data.gshell";
+    static string preferencesFileName = "preferences.gshell";
     static string[] types = new string[] { "string ' '", "int ` `" };
     static List<string> paths = new List<string>();
     static List<commandFile> commandFiles = new List<commandFile>();
+
+    enum days { sun,mon };
     public static void Main(string[] args)
     {
+        setup();
+
         Console.ForegroundColor = ConsoleColor.White;
         Console.BackgroundColor = ConsoleColor.DarkMagenta;
         Console.Clear();
@@ -20,8 +26,6 @@ class main
         Console.WriteLine("***    Press Ctrl + C to exit or type 'help'!      ***");
         Console.WriteLine("***                                                ***");
         Console.WriteLine("******************************************************");
-
-        setup();
         while (true)
         {
             Console.Write(">");
@@ -152,6 +156,10 @@ class commandFile
             }
         }
     }
+}
+static class preferences {
+    public static ConsoleColor c;
+
 }
 class command
 {
